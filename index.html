@@ -17,6 +17,44 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+        }
+        /* Basit bir yükleme animasyonu */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3b82f6;
+            width: 24px;
+            height: 24px;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+        }
+        .tab-button.active {
+            border-color: #4f46e5;
+            color: #4f46e5;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -44,80 +82,96 @@
         <!-- Seller Features -->
         <section id="seller-features" class="mb-16">
             <h2 class="text-4xl font-bold text-center mb-10">🔧 <span class="gradient-text">Satıcılar İçin</span> Devrim Yaratan Özellikler</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Feature Card 1 -->
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Feature Card (Interactive) -->
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
                     <div class="text-blue-500 mb-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">Akıllı Fotoğraf Yönlendirme</h3>
-                    <p class="text-gray-600">Yapay zeka, en iyi açılar için sizi yönlendirir ve fotoğrafların kalitesini otomatik kontrol eder.</p>
+                    <h3 class="text-xl font-bold mb-2">Akıllı Fotoğraf Analizi</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">İlan fotoğrafınızı yükleyin, yapay zeka profesyonel bir gözle analiz edip iyileştirme önerileri sunsun.</p>
+                     <button id="openPhotoModal" class="mt-auto w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300">✨ Fotoğrafı Analiz Et (Demo)</button>
                 </div>
-                <!-- Feature Card 2 -->
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <!-- Feature Card (Interactive) -->
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
                     <div class="text-blue-500 mb-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17.5 3c-1.5 0-2.75 1.06-4 1.06-3 0-6-8-6-12.22A4.91 4.91 0 0 0 2.5 3C1 3 .5 4.5.5 6.22 1.5 11.22 6 22 12 22z"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">AI Destekli Açıklama</h3>
-                    <p class="text-gray-600">Araç bilgilerinizle saniyeler içinde profesyonel ve çekici bir ilan açıklaması oluşturulur.</p>
-                </div>
-                <!-- Feature Card 3 -->
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-                    <div class="text-blue-500 mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Fiyat Belirleme Yardımcısı</h3>
-                    <p class="text-gray-600">Piyasa verileriyle aracınıza en doğru değeri belirler, "hızlı sat" ve "maksimum kâr" modları sunar.</p>
-                </div>
-                <!-- Feature Card 4 -->
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-                    <div class="text-blue-500 mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-4.44a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.88z"></path><path d="M15 2v5h5"></path><path d="m12 18-2-2 2-2"></path><path d="m16 14-2 2 2 2"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">İlan Otomasyon Paneli</h3>
-                    <p class="text-gray-600">İlan performansınız düştüğünde yapay zeka size özel optimizasyon önerileri sunar.</p>
+                    <p class="text-gray-600 mb-4 flex-grow">Araç bilgilerinizle saniyeler içinde profesyonel ve çekici bir ilan açıklaması oluşturulur.</p>
+                    <button id="openDescriptionModal" class="mt-auto w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300">✨ Açıklama Oluştur (Demo)</button>
                 </div>
             </div>
         </section>
 
-        <!-- Buyer Features -->
+        <!-- Buyer/Seller Features -->
         <section id="buyer-features" class="mb-16">
-            <h2 class="text-4xl font-bold text-center mb-10">🤖 <span class="gradient-text">Alıcılar İçin</span> Akıllı Asistan Modülü</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 col-span-1 md:col-span-2 lg:col-span-1">
+            <h2 class="text-4xl font-bold text-center mb-10">🤖 <span class="gradient-text">Alıcılar ve Satıcılar İçin</span> Akıllı Asistan Modülü</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
                     <div class="text-purple-500 mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/><path d="M15 21V9"/></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">"Sana Özel 20 İlan"</h3>
-                    <p class="text-gray-600">Kriterlerinize göre F/P oranı en yüksek 20 aracı, neden seçildiğini açıklayarak listeler.</p>
+                    <h3 class="text-xl font-bold mb-2">Araç Karşılaştırma Asistanı</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">İki aracı; performans, maliyet ve piyasa değeri gibi konularda karşılaştırın.</p>
+                    <button id="openComparisonModal" class="mt-auto w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors duration-300">✨ Karşılaştır (Demo)</button>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-                    <div class="text-purple-500 mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Kelepir & Acil Satılık Radarı</h3>
-                    <p class="text-gray-600">Piyasa ortalamasının %10-20 altında olan "fırsat" araçlarını anında tespit eder ve listeler.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-                    <div class="text-purple-500 mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8Z"></path><path d="M18 16c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8Z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Alternatif Araç Önerme</h3>
-                    <p class="text-gray-600">"Golf yerine BMW 116i düşünür müsün?" gibi akıllı alternatifler ve bütçe genişletme önerileri sunar.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
                     <div class="text-purple-500 mb-3">
                          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-2.5"/><path d="M12 16.5v-2.5"/><path d="M12 11.5v-2.5"/><path d="M12 6.5V4"/><path d="m16 6.5 1.5-1.5"/><path d="m20 11.5 1.5-1.5"/><path d="m20 16.5 1.5 1.5"/><path d="m16 21.5 1.5 1.5"/><path d="m8 6.5-1.5-1.5"/><path d="m4 11.5-1.5-1.5"/><path d="m4 16.5 1.5 1.5"/><path d="m8 21.5-1.5 1.5"/><circle cx="12" cy="14" r="2.5"/></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Akıllı Fiyat Puanlaması</h3>
-                    <p class="text-gray-600">Her ilanı km, yaş, hasar, donanım gibi kriterlere göre 100 üzerinden objektif olarak puanlar.</p>
+                    <p class="text-gray-600 mb-4 flex-grow">Bir ilanın F/P oranını 100 üzerinden objektif olarak puanlar.</p>
+                    <button id="openScoringModal" class="mt-auto w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors duration-300">✨ Fiyat Puanla (Demo)</button>
                 </div>
-                 <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 col-span-1 md:col-span-2 lg:col-span-2">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
                     <div class="text-purple-500 mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><path d="M2 8c0-2.2.7-4.3 2-6"></path><path d="M22 8a10 10 0 0 0-2-6"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">"Kaçırma Radarım" – Anlık Bildirim</h3>
-                    <p class="text-gray-600">Hayalinizdeki aracın kriterlerini kaydedin, piyasaya düştüğü an size anlık bildirim gönderelim. Fırsatları asla kaçırmayın!</p>
+                    <h3 class="text-xl font-bold mb-2">Pazarlık Asistanı</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Alıcı veya satıcı için pazarlık stratejileri ve karşı argümanlar üretir.</p>
+                    <button id="openNegotiationModal" class="mt-auto w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors duration-300">✨ Strateji Al (Demo)</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="text-purple-500 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4.8c0-1.2.9-2.2 2.2-2.2h1.6c1.2 0 2.2.9 2.2 2.2V8"/><path d="M8 8V4.8C8 3.7 7.1 2.8 6 2.8H4.8C3.7 2.8 2.8 3.7 2.8 4.8V8"/><path d="M12 12v4"/><path d="M16 12v4"/><path d="M8 12v4"/><path d="M21.2 8H2.8c-1 0-1.8.8-1.8 1.8v8.4c0 1 .8 1.8 1.8 1.8h18.4c1 0 1.8-.8 1.8-1.8v-8.4c0-1-.8-1.8-1.8-1.8Z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Arıza Tespit ve Masraf Tahmini</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Bir arıza belirtisi tarif edin, AI olası sorunları ve tahmini masrafını analiz etsin.</p>
+                    <button id="openFaultModal" class="mt-auto w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors duration-300">✨ Arıza Analizi Yap (Demo)</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="text-purple-500 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="m10 10.5 2 2 2-2"></path><path d="m10 15.5 2 2 2-2"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Test Sürüşü Kontrol Listesi</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Araca özel test sürüşü kontrol listesi oluşturarak hiçbir detayı atlamayın.</p>
+                    <button id="openTestDriveModal" class="mt-auto w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors duration-300">✨ Liste Oluştur (Demo)</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="text-purple-500 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/><path d="M13 9h6v6"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Değer Kaybı Tahmini</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Bir aracın gelecekteki 1-3 yıllık değer kaybını ve piyasa değerini tahmin edin.</p>
+                    <button id="openDepreciationModal" class="mt-auto w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors duration-300">✨ Değer Tahmini Al (Demo)</button>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="text-purple-500 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8Z"></path><path d="M18 16c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8Z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Alternatif Araç Önerme</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">"Golf yerine BMW 116i düşünür müsün?" gibi akıllı alternatifler sunar.</p>
+                    <button id="openSuggestionModal" class="mt-auto w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors duration-300">✨ Alternatif Bul (Demo)</button>
+                </div>
+                 <!-- NEW Feature Card (Interactive) -->
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col">
+                    <div class="text-purple-500 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Sigorta & Kasko Maliyet Tahmini</h3>
+                    <p class="text-gray-600 mb-4 flex-grow">Aracınız ve size özel tahmini Trafik Sigortası ve Kasko maliyetlerini öğrenin.</p>
+                    <button id="openInsuranceModal" class="mt-auto w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 transition-colors duration-300">✨ Maliyet Hesapla (Demo)</button>
                 </div>
             </div>
         </section>
@@ -149,11 +203,15 @@
                             </tr>
                             <tr class="border-b border-gray-100">
                                 <td class="p-4">Fiyat karşılaştırması yok</td>
-                                <td class="p-4 font-medium text-gray-800">✅ Fiyat/performans puanlaması ve analiz</td>
+                                <td class="p-4 font-medium text-gray-800">✅ Detaylı Karşılaştırma ve F/P Analizi</td>
                             </tr>
-                            <tr>
+                             <tr class="border-b border-gray-100">
                                 <td class="p-4">Anlık takip yok</td>
                                 <td class="p-4 font-medium text-gray-800">✅ Gerçek zamanlı kelepir uyarı sistemi</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4">Pazarlık/Arıza/Test bilgisi yok</td>
+                                <td class="p-4 font-medium text-gray-800">✅ AI Destekli Pazarlık, Arıza ve Test Sürüşü Asistanı</td>
                             </tr>
                         </tbody>
                     </table>
@@ -220,6 +278,809 @@
         </footer>
 
     </div>
+
+    <!-- Modals -->
+    <!-- Insurance Modal -->
+    <div id="insuranceModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl mx-4 p-6 relative">
+            <button id="closeInsuranceModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Sigorta & Kasko Tahmini</h3>
+            <form id="insuranceForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input type="text" id="ins_model" placeholder="Marka & Model (örn: Toyota Corolla 1.5)" class="p-2 border rounded-md">
+                    <input type="number" id="ins_year" placeholder="Model Yılı (örn: 2022)" class="p-2 border rounded-md">
+                    <input type="number" id="ins_age" placeholder="Kullanıcının Yaşı (örn: 35)" class="p-2 border rounded-md">
+                    <input type="text" id="ins_city" placeholder="Yaşadığı Şehir (örn: İstanbul)" class="p-2 border rounded-md">
+                </div>
+                <textarea id="ins_history" placeholder="Varsa hasar geçmişi özeti (örn: 1 adet 5.000 TL tramer kaydı var)" class="w-full p-2 border rounded-md mb-4" rows="2"></textarea>
+                <button type="submit" id="generateInsuranceBtn" class="w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 flex items-center justify-center">
+                    Maliyetleri Tahmin Et
+                </button>
+            </form>
+            <div id="insuranceResultWrapper" class="mt-6 hidden">
+                <h4 class="font-semibold mb-2 text-xl">Sigorta Analizi:</h4>
+                <div id="insuranceResult" class="p-4 bg-gray-50 rounded-md border border-gray-200 min-h-[150px] max-h-96 overflow-y-auto whitespace-pre-wrap"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Comparison Modal -->
+    <div id="comparisonModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-4xl mx-4 p-6 relative">
+            <button id="closeComparisonModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Araç Karşılaştırma</h3>
+            <form id="comparisonForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                    <!-- Car 1 -->
+                    <div>
+                        <h4 class="font-semibold text-lg mb-2">Araç 1</h4>
+                        <input type="text" id="comp_model1" placeholder="Marka & Model (örn: Skoda Superb)" class="w-full p-2 border rounded-md mb-2">
+                        <input type="text" id="comp_details1" placeholder="Yıl, Motor, Donanım (örn: 2018 1.6 TDI Style)" class="w-full p-2 border rounded-md">
+                    </div>
+                    <!-- Car 2 -->
+                    <div>
+                        <h4 class="font-semibold text-lg mb-2">Araç 2</h4>
+                        <input type="text" id="comp_model2" placeholder="Marka & Model (örn: VW Passat)" class="w-full p-2 border rounded-md mb-2">
+                        <input type="text" id="comp_details2" placeholder="Yıl, Motor, Donanım (örn: 2017 1.6 TDI Comfortline)" class="w-full p-2 border rounded-md">
+                    </div>
+                </div>
+                <button type="submit" id="generateComparisonBtn" class="w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 flex items-center justify-center">
+                    Araçları Karşılaştır
+                </button>
+            </form>
+            <div id="comparisonResultWrapper" class="mt-6 hidden">
+                <h4 class="font-semibold mb-2 text-xl">Karşılaştırma Raporu:</h4>
+                <div id="comparisonResult" class="p-4 bg-gray-50 rounded-md border border-gray-200 min-h-[150px] max-h-96 overflow-y-auto whitespace-pre-wrap"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Depreciation Modal -->
+    <div id="depreciationModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl mx-4 p-6 relative">
+            <button id="closeDepreciationModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Değer Kaybı Tahmini</h3>
+            <form id="depreciationForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input type="text" id="dep_model" placeholder="Marka & Model (örn: Honda Civic 1.5 VTEC)" class="p-2 border rounded-md">
+                    <input type="number" id="dep_year" placeholder="Model Yılı (örn: 2021)" class="p-2 border rounded-md">
+                    <input type="number" id="dep_km" placeholder="Mevcut Kilometre (örn: 45000)" class="p-2 border rounded-md">
+                    <input type="number" id="dep_annual_km" placeholder="Yıllık Ortalama KM (örn: 15000)" class="p-2 border rounded-md">
+                </div>
+                <button type="submit" id="generateDepreciationBtn" class="w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 flex items-center justify-center">
+                    Değer Kaybını Tahmin Et
+                </button>
+            </form>
+            <div id="depreciationResultWrapper" class="mt-6 hidden">
+                <h4 class="font-semibold mb-2 text-xl">Değer Kaybı Analizi:</h4>
+                <div id="depreciationResult" class="p-4 bg-gray-50 rounded-md border border-gray-200 min-h-[150px] max-h-96 overflow-y-auto whitespace-pre-wrap"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Market Analysis Modal -->
+    <div id="marketModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl mx-4 p-6 relative">
+            <button id="closeMarketModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Piyasa Analizi</h3>
+            <form id="marketForm">
+                <input type="text" id="market_model" placeholder="Marka & Model (örn: Ford Focus 1.5 TDCi)" class="w-full p-2 border rounded-md mb-4">
+                <input type="text" id="market_year_range" placeholder="Yıl Aralığı (örn: 2017-2019)" class="w-full p-2 border rounded-md mb-4">
+                <button type="submit" id="generateMarketBtn" class="w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 flex items-center justify-center">
+                    Rapor Oluştur
+                </button>
+            </form>
+            <div id="marketResultWrapper" class="mt-6 hidden">
+                <h4 class="font-semibold mb-2 text-xl">Piyasa Analiz Raporu:</h4>
+                <div id="marketResult" class="p-4 bg-gray-50 rounded-md border border-gray-200 min-h-[150px] max-h-96 overflow-y-auto whitespace-pre-wrap"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test Drive Modal -->
+    <div id="testDriveModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl mx-4 p-6 relative">
+            <button id="closeTestDriveModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Test Sürüşü Listesi</h3>
+            <form id="testDriveForm">
+                <input type="text" id="td_model" placeholder="Marka & Model (örn: VW Passat 1.6 TDI)" class="w-full p-2 border rounded-md mb-4">
+                <textarea id="td_concerns" placeholder="Varsa araca özel endişelerinizi yazın (örn: DSG şanzımanından endişeliyim)" class="w-full p-2 border rounded-md mb-4" rows="2"></textarea>
+                <button type="submit" id="generateTestDriveBtn" class="w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 flex items-center justify-center">
+                    Kontrol Listesi Oluştur
+                </button>
+            </form>
+            <div id="testDriveResultWrapper" class="mt-6 hidden">
+                <h4 class="font-semibold mb-2 text-xl">Araca Özel Test Sürüşü Kontrol Listeniz:</h4>
+                <div id="testDriveResult" class="p-4 bg-gray-50 rounded-md border border-gray-200 min-h-[150px] max-h-96 overflow-y-auto whitespace-pre-wrap"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fault Diagnosis Modal -->
+    <div id="faultModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl mx-4 p-6 relative">
+            <button id="closeFaultModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Arıza Tespit Asistanı</h3>
+            <form id="faultForm">
+                <input type="text" id="fault_model" placeholder="Marka & Model (örn: Renault Clio 1.5 dCi)" class="w-full p-2 border rounded-md mb-4">
+                <textarea id="fault_symptoms" placeholder="Gözlemlediğiniz arıza belirtilerini detaylıca yazın... (örn: Araç ilk çalıştığında motordan tıkırtı sesi geliyor ve 10 saniye sonra kesiliyor. Egzozdan mavi duman atıyor.)" class="w-full p-2 border rounded-md mb-4" rows="4"></textarea>
+                <button type="submit" id="generateFaultBtn" class="w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 flex items-center justify-center">
+                    Arızayı Analiz Et
+                </button>
+            </form>
+            <div id="faultResultWrapper" class="mt-6 hidden">
+                <h4 class="font-semibold mb-2 text-xl">AI Arıza Analizi:</h4>
+                <div id="faultResult" class="p-4 bg-gray-50 rounded-md border border-gray-200 min-h-[150px]"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Negotiation Modal -->
+    <div id="negotiationModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl mx-4 p-6 relative">
+            <button id="closeNegotiationModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Pazarlık Asistanı</h3>
+            <div class="mb-4 border-b border-gray-200">
+                <nav class="flex -mb-px" aria-label="Tabs">
+                    <button id="buyerTab" class="tab-button w-1/2 py-3 px-1 text-center border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        Alıcıyım
+                    </button>
+                    <button id="sellerTab" class="tab-button w-1/2 py-3 px-1 text-center border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        Satıcıyım
+                    </button>
+                </nav>
+            </div>
+            <form id="negotiationForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <input type="text" id="neg_model" placeholder="Marka & Model (örn: Fiat Egea)" class="p-2 border rounded-md">
+                    <input type="number" id="neg_year" placeholder="Yıl (örn: 2021)" class="p-2 border rounded-md">
+                    <input type="number" id="neg_km" placeholder="Kilometre (örn: 95000)" class="p-2 border rounded-md">
+                    <input type="number" id="neg_price" placeholder="İlan Fiyatı (TL)" class="p-2 border rounded-md">
+                </div>
+                <textarea id="neg_details" placeholder="Araçla ilgili bildiğiniz diğer detaylar (hasar, ekstra donanım vb.)" class="w-full p-2 border rounded-md mb-4" rows="3"></textarea>
+                <button type="submit" id="generateNegotiationBtn" class="w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 flex items-center justify-center">
+                    Pazarlık Stratejisi Oluştur
+                </button>
+            </form>
+            <div id="negotiationResultWrapper" class="mt-6 hidden">
+                <h4 class="font-semibold mb-2 text-xl">AI Pazarlık Raporu:</h4>
+                <div id="negotiationResult" class="p-4 bg-gray-50 rounded-md border border-gray-200 min-h-[150px] whitespace-pre-wrap"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo Analysis Modal -->
+    <div id="photoModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-3xl mx-4 p-6 relative">
+            <button id="closePhotoModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Fotoğraf Analizi</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <label for="photoUpload" class="block mb-2 font-semibold text-gray-700">Analiz için bir fotoğraf yükleyin:</label>
+                    <input type="file" id="photoUpload" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+                    <div class="mt-4 w-full h-64 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed">
+                        <img id="photoPreview" src="" alt="Yüklenen Fotoğraf" class="max-h-full max-w-full hidden object-contain"/>
+                        <span id="photoPlaceholder" class="text-gray-400">Fotoğraf Önizleme</span>
+                    </div>
+                     <button id="analyzePhotoButton" class="w-full mt-4 bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 flex items-center justify-center disabled:bg-gray-400" disabled>
+                        Fotoğrafı Analiz Et
+                    </button>
+                </div>
+                <div id="photoResultWrapper" class="hidden">
+                    <h4 class="font-semibold mb-2 text-lg">AI Analizi:</h4>
+                    <div id="photoResult" class="p-4 bg-gray-50 rounded-md border border-gray-200 min-h-[200px]">
+                        <!-- Analysis will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Description Generator Modal -->
+    <div id="descriptionModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-lg mx-4 p-6 relative">
+            <button id="closeDescriptionModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Açıklama Oluşturucu</h3>
+            <form id="descriptionForm">
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <input type="text" id="brand" placeholder="Marka (örn: Opel)" class="p-2 border rounded-md">
+                    <input type="text" id="model" placeholder="Model (örn: Astra)" class="p-2 border rounded-md">
+                    <input type="number" id="year" placeholder="Yıl (örn: 2020)" class="p-2 border rounded-md">
+                    <input type="number" id="km" placeholder="Kilometre (örn: 78000)" class="p-2 border rounded-md">
+                </div>
+                <textarea id="extraInfo" placeholder="Ek bilgiler (örn: LPG'li, hasarsız, ilk sahibinden)" class="w-full p-2 border rounded-md mb-4" rows="3"></textarea>
+                <button type="submit" id="generateDescriptionBtn" class="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 flex items-center justify-center">
+                    Açıklama Oluştur
+                </button>
+            </form>
+            <div id="descriptionResultWrapper" class="mt-4 hidden">
+                <h4 class="font-semibold mb-2">Oluşturulan Açıklama:</h4>
+                <div id="descriptionResult" class="p-4 bg-gray-100 rounded-md border border-gray-200 min-h-[100px]"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Suggestion Generator Modal -->
+    <div id="suggestionModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-lg mx-4 p-6 relative">
+            <button id="closeSuggestionModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Alternatif Bulucu</h3>
+            <form id="suggestionForm">
+                <textarea id="currentCar" placeholder="Aradığınız aracı ve bütçenizi yazın... (örn: 2021 model Peugeot 2008 için 1.100.000 TL bütçem var)" class="w-full p-2 border rounded-md mb-4" rows="3"></textarea>
+                <button type="submit" id="generateSuggestionBtn" class="w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 flex items-center justify-center">
+                    Alternatifleri Bul
+                </button>
+            </form>
+            <div id="suggestionResultWrapper" class="mt-4 hidden">
+                <h4 class="font-semibold mb-2">Alternatif Öneriler:</h4>
+                <div id="suggestionResult" class="p-4 bg-gray-100 rounded-md border border-gray-200 min-h-[100px]"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scoring Modal -->
+    <div id="scoringModal" class="fixed inset-0 z-50 items-center justify-center hidden modal-backdrop">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-2xl mx-4 p-6 relative">
+            <button id="closeScoringModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <h3 class="text-2xl font-bold mb-4">✨ AI Destekli Fiyat Puanlama</h3>
+            <form id="scoringForm">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <input type="text" id="score_model" placeholder="Marka & Model (örn: Fiat Egea)" class="p-2 border rounded-md md:col-span-2">
+                    <input type="number" id="score_year" placeholder="Yıl (örn: 2021)" class="p-2 border rounded-md">
+                    <input type="number" id="score_km" placeholder="Kilometre (örn: 95000)" class="p-2 border rounded-md">
+                    <input type="number" id="score_price" placeholder="Fiyat (TL) (örn: 750000)" class="p-2 border rounded-md">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <textarea id="score_damage" placeholder="Hasar ve boya durumu (örn: Sol ön çamurluk boyalı, 5.000 TL tramer)" class="w-full p-2 border rounded-md" rows="3"></textarea>
+                    <textarea id="score_extras" placeholder="Donanım ve ekstralar (örn: Urban Plus paket, cam tavan, geri görüş kamerası)" class="w-full p-2 border rounded-md" rows="3"></textarea>
+                </div>
+                <button type="submit" id="generateScoringBtn" class="w-full bg-purple-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-purple-600 flex items-center justify-center">
+                    Aracı Puanla
+                </button>
+            </form>
+            <div id="scoringResultWrapper" class="mt-6 hidden">
+                <h4 class="font-semibold text-center mb-4 text-xl">OtoAI F/P Skoru</h4>
+                <div id="scoringResult" class="p-4 bg-gray-50 rounded-md border border-gray-200 flex flex-col md:flex-row items-center gap-6">
+                    <!-- Score will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // --- Utility Functions ---
+    function cleanJsonResponse(rawResponse) {
+        // Removes markdown fences and trims whitespace
+        return rawResponse.replace(/```json/g, '').replace(/```/g, '').trim();
+    }
+
+    // --- Gemini API Çağrısı için Genel Fonksiyon ---
+    async function callGemini(prompt, buttonElement, imageBase64 = null, imageType = null) {
+        const originalButtonContent = buttonElement.innerHTML;
+        buttonElement.innerHTML = '<div class="loader"></div>';
+        buttonElement.disabled = true;
+
+        const apiKey = ""; // Canvas ortamı tarafından sağlanır
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+        let parts = [{ text: prompt }];
+        if (imageBase64 && imageType) {
+            parts.push({
+                inlineData: {
+                    mimeType: imageType,
+                    data: imageBase64
+                }
+            });
+        }
+        
+        const payload = {
+            contents: [{ parts: parts }]
+        };
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`API hatası: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            
+            if (result.candidates && result.candidates.length > 0 &&
+                result.candidates[0].content && result.candidates[0].content.parts &&
+                result.candidates[0].content.parts.length > 0) {
+                return result.candidates[0].content.parts[0].text;
+            } else {
+                console.error("API'den beklenen formatta bir yanıt alınamadı:", result);
+                return "Yapay zekadan bir yanıt alınamadı. Lütfen tekrar deneyin.";
+            }
+        } catch (error) {
+            console.error("Gemini API çağrısı sırasında hata:", error);
+            return "Bir hata oluştu. Lütfen konsolu kontrol edin.";
+        } finally {
+            buttonElement.innerHTML = originalButtonContent;
+            buttonElement.disabled = false;
+        }
+    }
+
+    // --- Modal Kontrolleri ---
+    const allModals = {
+        descriptionModal: document.getElementById('descriptionModal'),
+        suggestionModal: document.getElementById('suggestionModal'),
+        scoringModal: document.getElementById('scoringModal'),
+        photoModal: document.getElementById('photoModal'),
+        negotiationModal: document.getElementById('negotiationModal'),
+        faultModal: document.getElementById('faultModal'),
+        testDriveModal: document.getElementById('testDriveModal'),
+        marketModal: document.getElementById('marketModal'),
+        depreciationModal: document.getElementById('depreciationModal'),
+        comparisonModal: document.getElementById('comparisonModal'),
+        insuranceModal: document.getElementById('insuranceModal')
+    };
+
+    const openModal = (modal) => {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    };
+
+    const closeModal = (modal) => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    };
+
+    // Setup open/close listeners
+    document.getElementById('openDescriptionModal').addEventListener('click', () => openModal(allModals.descriptionModal));
+    document.getElementById('closeDescriptionModal').addEventListener('click', () => closeModal(allModals.descriptionModal));
+    document.getElementById('openSuggestionModal').addEventListener('click', () => openModal(allModals.suggestionModal));
+    document.getElementById('closeSuggestionModal').addEventListener('click', () => closeModal(allModals.suggestionModal));
+    document.getElementById('openScoringModal').addEventListener('click', () => openModal(allModals.scoringModal));
+    document.getElementById('closeScoringModal').addEventListener('click', () => closeModal(allModals.scoringModal));
+    document.getElementById('openPhotoModal').addEventListener('click', () => openModal(allModals.photoModal));
+    document.getElementById('closePhotoModal').addEventListener('click', () => closeModal(allModals.photoModal));
+    document.getElementById('openNegotiationModal').addEventListener('click', () => openModal(allModals.negotiationModal));
+    document.getElementById('closeNegotiationModal').addEventListener('click', () => closeModal(allModals.negotiationModal));
+    document.getElementById('openFaultModal').addEventListener('click', () => openModal(allModals.faultModal));
+    document.getElementById('closeFaultModal').addEventListener('click', () => closeModal(allModals.faultModal));
+    document.getElementById('openTestDriveModal').addEventListener('click', () => openModal(allModals.testDriveModal));
+    document.getElementById('closeTestDriveModal').addEventListener('click', () => closeModal(allModals.testDriveModal));
+    document.getElementById('openMarketModal').addEventListener('click', () => openModal(allModals.marketModal));
+    document.getElementById('closeMarketModal').addEventListener('click', () => closeModal(allModals.marketModal));
+    document.getElementById('openDepreciationModal').addEventListener('click', () => openModal(allModals.depreciationModal));
+    document.getElementById('closeDepreciationModal').addEventListener('click', () => closeModal(allModals.depreciationModal));
+    document.getElementById('openComparisonModal').addEventListener('click', () => openModal(allModals.comparisonModal));
+    document.getElementById('closeComparisonModal').addEventListener('click', () => closeModal(allModals.comparisonModal));
+    document.getElementById('openInsuranceModal').addEventListener('click', () => openModal(allModals.insuranceModal));
+    document.getElementById('closeInsuranceModal').addEventListener('click', () => closeModal(allModals.insuranceModal));
+
+
+    // Close modal on backdrop click
+    window.addEventListener('click', (event) => {
+        for (const key in allModals) {
+            if (event.target === allModals[key]) {
+                closeModal(allModals[key]);
+            }
+        }
+    });
+
+    // --- Fotoğraf Analiz Demo Mantığı ---
+    const photoUpload = document.getElementById('photoUpload');
+    const photoPreview = document.getElementById('photoPreview');
+    const photoPlaceholder = document.getElementById('photoPlaceholder');
+    const analyzePhotoButton = document.getElementById('analyzePhotoButton');
+    const photoResultWrapper = document.getElementById('photoResultWrapper');
+    const photoResult = document.getElementById('photoResult');
+    let uploadedImageBase64 = null;
+    let uploadedImageType = null;
+
+    photoUpload.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                photoPreview.src = e.target.result;
+                photoPreview.classList.remove('hidden');
+                photoPlaceholder.classList.add('hidden');
+                analyzePhotoButton.disabled = false;
+                uploadedImageBase64 = e.target.result.split(',')[1];
+                uploadedImageType = file.type;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    analyzePhotoButton.addEventListener('click', async () => {
+        if (!uploadedImageBase64) {
+            alert('Lütfen önce bir fotoğraf yükleyin.');
+            return;
+        }
+        
+        const prompt = `Sen ikinci el araba satışı konusunda uzman bir danışmansın. Yüklenen bu fotoğrafı, başarılı bir online satış ilanı için değerlendir. Analizini JSON formatında şu şekilde yap: {"analysis_summary": "kısa genel değerlendirme", "positive_points": ["olumlu nokta 1", "olumlu nokta 2"], "improvement_suggestions": ["geliştirme önerisi 1", "geliştirme önerisi 2"]}. Değerlendirmeyi yaparken şu kriterlere odaklan: fotoğrafın açısı (ön, arka, yan, iç mekan vb.), ışıklandırma, aracın temizliği, kompozisyon (çevredeki dağınıklık) ve fotoğrafın genel çekiciliği. Yanıtı Türkçe ver.`;
+
+        const rawResponse = await callGemini(prompt, analyzePhotoButton, uploadedImageBase64, uploadedImageType);
+        
+        try {
+            const parsedResponse = JSON.parse(cleanJsonResponse(rawResponse));
+            let htmlResult = `<p class="mb-4 font-semibold">${parsedResponse.analysis_summary}</p>`;
+            
+            if (parsedResponse.positive_points && parsedResponse.positive_points.length > 0) {
+                htmlResult += '<h5 class="font-semibold text-green-600 mb-2">✅ Olumlu Yönler:</h5><ul class="list-disc list-inside mb-4 space-y-1">';
+                parsedResponse.positive_points.forEach(point => { htmlResult += `<li>${point}</li>`; });
+                htmlResult += '</ul>';
+            }
+
+            if (parsedResponse.improvement_suggestions && parsedResponse.improvement_suggestions.length > 0) {
+                htmlResult += '<h5 class="font-semibold text-yellow-600 mb-2">💡 Geliştirme Önerileri:</h5><ul class="list-disc list-inside space-y-1">';
+                parsedResponse.improvement_suggestions.forEach(point => { htmlResult += `<li>${point}</li>`; });
+                htmlResult += '</ul>';
+            }
+            
+            photoResult.innerHTML = htmlResult;
+            photoResultWrapper.classList.remove('hidden');
+        } catch(e) {
+            console.error("JSON parse hatası:", e);
+            photoResult.innerHTML = `<div class="text-red-500">Yapay zekadan gelen yanıt işlenemedi. Lütfen tekrar deneyin.</div>`;
+            photoResultWrapper.classList.remove('hidden');
+        }
+    });
+
+
+    // --- Açıklama Oluşturucu Demo Mantığı ---
+    const descriptionForm = document.getElementById('descriptionForm');
+    const descriptionResultWrapper = document.getElementById('descriptionResultWrapper');
+    const descriptionResult = document.getElementById('descriptionResult');
+
+    descriptionForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const brand = document.getElementById('brand').value;
+        const model = document.getElementById('model').value;
+        const year = document.getElementById('year').value;
+        const km = document.getElementById('km').value;
+        const extraInfo = document.getElementById('extraInfo').value;
+
+        if (!brand || !model || !year || !km) {
+            alert('Lütfen tüm zorunlu alanları doldurun.');
+            return;
+        }
+
+        const prompt = `Aşağıdaki bilgilere sahip bir araba için Türkiye pazarına uygun, samimi ve dikkat çekici bir ikinci el satış ilanı açıklaması yaz. Açıklamada aracın avantajlarını vurgula. Bilgiler: Marka: ${brand}, Model: ${model}, Yıl: ${year}, Kilometre: ${km}, Ek Bilgiler: ${extraInfo}`;
+        
+        const generateBtn = document.getElementById('generateDescriptionBtn');
+        const generatedText = await callGemini(prompt, generateBtn);
+        
+        descriptionResult.innerText = generatedText;
+        descriptionResultWrapper.classList.remove('hidden');
+    });
+
+    // --- Alternatif Bulucu Demo Mantığı ---
+    const suggestionForm = document.getElementById('suggestionForm');
+    const suggestionResultWrapper = document.getElementById('suggestionResultWrapper');
+    const suggestionResult = document.getElementById('suggestionResult');
+
+    suggestionForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const currentCar = document.getElementById('currentCar').value;
+
+        if (!currentCar) {
+            alert('Lütfen aradığınız aracı ve bütçenizi girin.');
+            return;
+        }
+
+        const prompt = `Bir kullanıcı ikinci el araba arıyor. Kullanıcının talebi: "${currentCar}". Bu talebe göre, Türkiye pazarını göz önünde bulundurarak kullanıcıya mantıklı gerekçelerle 3 farklı alternatif araç öner. Önerileri, her birinin neden iyi bir alternatif olduğunu açıklayarak liste formatında sun. Yanıtı Türkçe ver.`;
+        
+        const generateBtn = document.getElementById('generateSuggestionBtn');
+        const generatedText = await callGemini(prompt, generateBtn);
+        
+        suggestionResult.innerText = generatedText;
+        suggestionResultWrapper.classList.remove('hidden');
+    });
+
+    // --- Fiyat Puanlama Demo Mantığı ---
+    const scoringForm = document.getElementById('scoringForm');
+    const scoringResultWrapper = document.getElementById('scoringResultWrapper');
+    const scoringResult = document.getElementById('scoringResult');
+
+    scoringForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const carModel = document.getElementById('score_model').value;
+        const year = document.getElementById('score_year').value;
+        const km = document.getElementById('score_km').value;
+        const price = document.getElementById('score_price').value;
+        const damage = document.getElementById('score_damage').value;
+        const extras = document.getElementById('score_extras').value;
+
+        if (!carModel || !year || !km || !price) {
+            alert('Lütfen Marka/Model, Yıl, Kilometre ve Fiyat alanlarını doldurun.');
+            return;
+        }
+
+        const prompt = `Sen OtoAI'nin akıllı fiyat puanlama motorusun. Görevin, aşağıdaki ikinci el aracı Türkiye piyasasına göre analiz etmek ve 100 üzerinden bir Fiyat/Performans (F/P) puanı vermek. Cevabını JSON formatında şu şekilde ver: {"score": "puan", "analysis": "analiz metni"}. 'analysis' kısmında, puanı neyin artırdığını ve neyin düşürdüğünü madde imleri (bullet points) kullanarak kısaca açıkla. Araç Bilgileri: Marka/Model: ${carModel}, Yıl: ${year}, Kilometre: ${km} km, Fiyat: ${price} TL, Hasar Bilgisi: ${damage || 'Belirtilmemiş'}, Ekstralar: ${extras || 'Belirtilmemiş'}. Puanlamayı yaparken modelin popülerliğini, km/yaş oranını, fiyatının piyasa ortalamasına göre konumunu, hasar durumunu ve donanımlarını göz önünde bulundur. Yanıtı Türkçe ver.`;
+        
+        const generateBtn = document.getElementById('generateScoringBtn');
+        const rawResponse = await callGemini(prompt, generateBtn);
+        
+        try {
+            const parsedResponse = JSON.parse(cleanJsonResponse(rawResponse));
+            const score = parseInt(parsedResponse.score) || 0;
+            const analysis = parsedResponse.analysis;
+
+            let bgColor = 'bg-red-500';
+            if (score >= 80) { bgColor = 'bg-green-500'; }
+            else if (score >= 60) { bgColor = 'bg-yellow-500'; }
+
+            scoringResult.innerHTML = `
+                <div class="score-circle ${bgColor} flex-shrink-0">
+                    ${score}
+                </div>
+                <div class="text-gray-700 whitespace-pre-wrap">${analysis}</div>
+            `;
+            scoringResultWrapper.classList.remove('hidden');
+
+        } catch (error) {
+            console.error("JSON parse hatası:", error);
+            scoringResult.innerHTML = `<div class="text-red-500">Yapay zekadan gelen yanıt işlenemedi. Lütfen tekrar deneyin. Yanıt: ${rawResponse}</div>`;
+            scoringResultWrapper.classList.remove('hidden');
+        }
+    });
+
+    // --- Pazarlık Asistanı Demo Mantığı ---
+    const negotiationForm = document.getElementById('negotiationForm');
+    const negotiationResultWrapper = document.getElementById('negotiationResultWrapper');
+    const negotiationResult = document.getElementById('negotiationResult');
+    const buyerTab = document.getElementById('buyerTab');
+    const sellerTab = document.getElementById('sellerTab');
+    let negotiationRole = 'buyer'; // 'buyer' or 'seller'
+
+    buyerTab.addEventListener('click', () => {
+        negotiationRole = 'buyer';
+        buyerTab.classList.add('active');
+        sellerTab.classList.remove('active');
+    });
+
+    sellerTab.addEventListener('click', () => {
+        negotiationRole = 'seller';
+        sellerTab.classList.add('active');
+        buyerTab.classList.remove('active');
+    });
+    
+    // Set initial active tab
+    buyerTab.classList.add('active');
+
+
+    negotiationForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const carModel = document.getElementById('neg_model').value;
+        const year = document.getElementById('neg_year').value;
+        const km = document.getElementById('neg_km').value;
+        const price = document.getElementById('neg_price').value;
+        const details = document.getElementById('neg_details').value;
+
+        if (!carModel || !year || !km || !price) {
+            alert('Lütfen tüm zorunlu alanları doldurun.');
+            return;
+        }
+
+        const carInfo = `Araç: ${year} model ${carModel}, ${km} km'de. İlan Fiyatı: ${price} TL. Ek Detaylar: ${details || 'Belirtilmemiş'}.`;
+        let prompt;
+
+        if (negotiationRole === 'buyer') {
+            prompt = `Sen Türkiye'deki ikinci el araba piyasası konusunda uzman bir pazarlık danışmanısın. Bir alıcıya yardım et. ${carInfo} Bu araç için alıcının elini güçlendirecek pazarlık kozları nelerdir? Gerçekçi bir karşı teklif aralığı ne olmalı? Satıcıya karşı kullanılabilecek taktiksel öneriler nelerdir? Cevabını 'Pazarlık Kozları', 'Gerçekçi Teklif Aralığı' ve 'Taktiksel Öneriler' başlıkları altında, madde imleri kullanarak Türkçe olarak hazırla.`;
+        } else { // seller
+            prompt = `Sen Türkiye'deki ikinci el araba piyasası konusunda uzman bir pazarlık danışmanısın. Bir satıcıya yardım et. ${carInfo} Bu aracın pazarlıktaki güçlü yönleri nelerdir ve bunları nasıl vurgulamalı? Alıcıdan gelebilecek düşük tekliflere karşı nasıl savunma yapmalı? Fiyat stratejisi ne olmalı ve kabul edilebilecek en düşük fiyat aralığı nedir? Cevabını 'Güçlü Yönleriniz', 'Düşük Tekliflere Karşı Savunma' ve 'Fiyat Stratejisi' başlıkları altında, madde imleri kullanarak Türkçe olarak hazırla.`;
+        }
+        
+        const generateBtn = document.getElementById('generateNegotiationBtn');
+        const generatedText = await callGemini(prompt, generateBtn);
+        
+        negotiationResult.innerText = generatedText;
+        negotiationResultWrapper.classList.remove('hidden');
+    });
+
+    // --- Arıza Tespit Demo Mantığı ---
+    const faultForm = document.getElementById('faultForm');
+    const faultResultWrapper = document.getElementById('faultResultWrapper');
+    const faultResult = document.getElementById('faultResult');
+
+    faultForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const carModel = document.getElementById('fault_model').value;
+        const symptoms = document.getElementById('fault_symptoms').value;
+
+        if (!symptoms) {
+            alert('Lütfen arıza belirtilerini açıklayın.');
+            return;
+        }
+
+        const prompt = `Sen Türkiye'de çalışan deneyimli bir otomobil tamir ustasısın. Bir kullanıcı sana bir arıza belirtisiyle geliyor. Görevin, bu belirtileri analiz edip olası sorunları, ciddiyetini ve tahmini masrafları içeren bir raporu JSON formatında sunmak. JSON yapısı şöyle olmalı: {"diagnoses": [{"problem": "Olası sorun başlığı", "severity": "Düşük/Orta/Yüksek", "cost_range_try": "Tahmini masraf aralığı (TL)", "details": "Sorunun detayı ve nedenleri."}], "summary": "Genel bir özet ve kullanıcıya tavsiye."}. Araç: ${carModel || 'Marka/Model belirtilmemiş'}. Belirtiler: "${symptoms}". Analizini Türkiye piyasası ve parça maliyetlerini göz önünde bulundurarak yap. Yanıtı Türkçe ver.`;
+
+        const generateBtn = document.getElementById('generateFaultBtn');
+        const rawResponse = await callGemini(prompt, generateBtn);
+
+        try {
+            const parsedResponse = JSON.parse(cleanJsonResponse(rawResponse));
+            let htmlResult = `<p class="mb-4 pb-4 border-b">${parsedResponse.summary}</p>`;
+            
+            if (parsedResponse.diagnoses && parsedResponse.diagnoses.length > 0) {
+                parsedResponse.diagnoses.forEach(diag => {
+                    let severityColor = 'text-gray-600';
+                    if (diag.severity === 'Yüksek') severityColor = 'text-red-600 font-bold';
+                    else if (diag.severity === 'Orta') severityColor = 'text-yellow-600 font-bold';
+                    else if (diag.severity === 'Düşük') severityColor = 'text-green-600 font-bold';
+
+                    htmlResult += `
+                        <div class="mb-4">
+                            <h5 class="font-bold text-lg">${diag.problem}</h5>
+                            <p class="text-sm"><span class="font-semibold">Ciddiyet:</span> <span class="${severityColor}">${diag.severity}</span></p>
+                            <p class="text-sm"><span class="font-semibold">Tahmini Masraf:</span> ${diag.cost_range_try}</p>
+                            <p class="mt-2 text-gray-700">${diag.details}</p>
+                        </div>
+                    `;
+                });
+            }
+            
+            faultResult.innerHTML = htmlResult;
+            faultResultWrapper.classList.remove('hidden');
+        } catch(e) {
+            console.error("JSON parse hatası:", e);
+            faultResult.innerHTML = `<div class="text-red-500">Yapay zekadan gelen yanıt işlenemedi. Lütfen tekrar deneyin.</div>`;
+            faultResultWrapper.classList.remove('hidden');
+        }
+    });
+
+    // --- Test Sürüşü Listesi Demo Mantığı ---
+    const testDriveForm = document.getElementById('testDriveForm');
+    const testDriveResultWrapper = document.getElementById('testDriveResultWrapper');
+    const testDriveResult = document.getElementById('testDriveResult');
+
+    testDriveForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const carModel = document.getElementById('td_model').value;
+        const concerns = document.getElementById('td_concerns').value;
+
+        if (!carModel) {
+            alert('Lütfen aracın marka ve modelini girin.');
+            return;
+        }
+
+        const prompt = `Sen uzman bir otomobil ekspertizisin. Bir alıcı, '${carModel}' model bir aracı test sürüşüne çıkaracak. Bu araca özel, detaylı ve kategorize edilmiş bir test sürüşü kontrol listesi hazırla. Liste, 'Motor ve Şanzıman', 'Fren ve Süspansiyon', 'Dış Aksam ve Lastikler', 'İç Mekan ve Elektronik' gibi başlıklar içermeli. Özellikle bu modelin bilinen kronik sorunlarına odaklan. Kullanıcının belirttiği ek endişeler varsa (${concerns || 'yok'}), bunları da listeye dahil et. Her madde, kullanıcının kolayca kontrol edebileceği bir eylem veya soru olmalı. Yanıtı başlıklar ve maddeler halinde, Türkçe olarak hazırla.`;
+
+        const generateBtn = document.getElementById('generateTestDriveBtn');
+        const generatedText = await callGemini(prompt, generateBtn);
+        
+        testDriveResult.innerText = generatedText;
+        testDriveResultWrapper.classList.remove('hidden');
+    });
+
+    // --- Piyasa Analiz Raporu Demo Mantığı ---
+    const marketForm = document.getElementById('marketForm');
+    const marketResultWrapper = document.getElementById('marketResultWrapper');
+    const marketResult = document.getElementById('marketResult');
+
+    marketForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const carModel = document.getElementById('market_model').value;
+        const yearRange = document.getElementById('market_year_range').value;
+
+        if (!carModel) {
+            alert('Lütfen aracın marka ve modelini girin.');
+            return;
+        }
+
+        const prompt = `Sen Türkiye ikinci el otomobil piyasası üzerine uzman bir analistsin. Kullanıcının belirttiği model ve yıl aralığı için bir piyasa analiz raporu hazırla. Rapor, 'Genel Değerlendirme', 'Fiyat Trendleri', 'Alım/Satım Zamanlaması' ve 'Piyasadaki Rakipleri' başlıklarını içermelidir. Analizini güncel piyasa koşulları, modelin popülerliği, kronik sorunları ve kullanıcı yorumlarını dikkate alarak yap. Araç: ${carModel}, Yıl Aralığı: ${yearRange || 'Belirtilmemiş'}. Yanıtı başlıklar ve maddeler halinde, Türkçe olarak hazırla.`;
+
+        const generateBtn = document.getElementById('generateMarketBtn');
+        const generatedText = await callGemini(prompt, generateBtn);
+        
+        marketResult.innerText = generatedText;
+        marketResultWrapper.classList.remove('hidden');
+    });
+
+    // --- Değer Kaybı Tahmini Demo Mantığı ---
+    const depreciationForm = document.getElementById('depreciationForm');
+    const depreciationResultWrapper = document.getElementById('depreciationResultWrapper');
+    const depreciationResult = document.getElementById('depreciationResult');
+
+    depreciationForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const carModel = document.getElementById('dep_model').value;
+        const year = document.getElementById('dep_year').value;
+        const km = document.getElementById('dep_km').value;
+        const annualKm = document.getElementById('dep_annual_km').value;
+
+        if (!carModel || !year || !km || !annualKm) {
+            alert('Lütfen tüm alanları doldurun.');
+            return;
+        }
+
+        const prompt = `Sen Türkiye ikinci el otomobil piyasası üzerine uzman bir değerleme analistisin. Kullanıcının verdiği bilgilere göre bir aracın gelecekteki değer kaybını tahmin et. Analizini, 'Genel Yorum', '1 Yıl Sonra Tahmini Değer', '2 Yıl Sonra Tahmini Değer' ve '3 Yıl Sonra Tahmini Değer' başlıkları altında yap. Tahminlerini yaparken modelin Türkiye'deki popülerliğini, yakıt tüketimini, kronik sorunlarını ve genel piyasa trendlerini göz önünde bulundur. Araç Bilgileri: Marka/Model: ${carModel}, Model Yılı: ${year}, Mevcut Kilometre: ${km}, Tahmini Yıllık Kullanım: ${annualKm} km. Yanıtı başlıklar ve açıklamalar halinde, Türkçe olarak hazırla.`;
+
+        const generateBtn = document.getElementById('generateDepreciationBtn');
+        const generatedText = await callGemini(prompt, generateBtn);
+        
+        depreciationResult.innerText = generatedText;
+        depreciationResultWrapper.classList.remove('hidden');
+    });
+
+    // --- Araç Karşılaştırma Demo Mantığı ---
+    const comparisonForm = document.getElementById('comparisonForm');
+    const comparisonResultWrapper = document.getElementById('comparisonResultWrapper');
+    const comparisonResult = document.getElementById('comparisonResult');
+
+    comparisonForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const model1 = document.getElementById('comp_model1').value;
+        const details1 = document.getElementById('comp_details1').value;
+        const model2 = document.getElementById('comp_model2').value;
+        const details2 = document.getElementById('comp_details2').value;
+
+        if (!model1 || !details1 || !model2 || !details2) {
+            alert('Lütfen her iki araç için de tüm bilgileri doldurun.');
+            return;
+        }
+
+        const prompt = `Sen uzman bir otomotiv gazetecisisin. İki ikinci el aracı karşılaştırman isteniyor. Araç 1: ${model1} (${details1}). Araç 2: ${model2} (${details2}). Bu iki aracı Türkiye pazarı koşullarına göre şu başlıklar altında detaylıca karşılaştır: 'Performans ve Sürüş Deneyimi', 'Yakıt Tüketimi ve Bakım Maliyetleri', 'Kronik Sorunlar ve Güvenilirlik', 'İkinci El Piyasası ve Değer Kaybı'. Son olarak, 'Özet ve Tavsiye' başlığı altında hangi aracın ne tür bir kullanıcı için daha uygun olduğunu açıkla. Yanıtı başlıklar ve maddeler halinde, Türkçe olarak hazırla.`;
+
+        const generateBtn = document.getElementById('generateComparisonBtn');
+        const generatedText = await callGemini(prompt, generateBtn);
+        
+        comparisonResult.innerText = generatedText;
+        comparisonResultWrapper.classList.remove('hidden');
+    });
+
+    // --- Sigorta & Kasko Maliyet Tahmini Demo Mantığı ---
+    const insuranceForm = document.getElementById('insuranceForm');
+    const insuranceResultWrapper = document.getElementById('insuranceResultWrapper');
+    const insuranceResult = document.getElementById('insuranceResult');
+
+    insuranceForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const carModel = document.getElementById('ins_model').value;
+        const year = document.getElementById('ins_year').value;
+        const age = document.getElementById('ins_age').value;
+        const city = document.getElementById('ins_city').value;
+        const history = document.getElementById('ins_history').value;
+
+        if (!carModel || !year || !age || !city) {
+            alert('Lütfen tüm alanları doldurun.');
+            return;
+        }
+
+        const prompt = `Sen Türkiye sigortacılık sektörü üzerine uzman bir analistsin. Kullanıcının verdiği bilgilere dayanarak bir araç için yıllık Zorunlu Trafik Sigortası ve Kasko maliyetlerini tahmin et. Analizini, 'Tahmini Yıllık Trafik Sigortası', 'Tahmini Yıllık Kasko Bedeli' ve 'Maliyeti Etkileyen Faktörler' başlıkları altında yap. Tahminlerini yaparken aracın modelini, yaşını, kullanıcının yaşını, yaşadığı şehri (trafik yoğunluğu ve risk faktörü olarak) ve hasar geçmişini dikkate al. Araç Bilgileri: Marka/Model: ${carModel}, Model Yılı: ${year}. Kullanıcı Bilgileri: Yaş: ${age}, Şehir: ${city}, Hasar Geçmişi: ${history || 'Belirtilmemiş'}. Yanıtı başlıklar ve açıklamalar halinde, Türkçe olarak hazırla.`;
+
+        const generateBtn = document.getElementById('generateInsuranceBtn');
+        const generatedText = await callGemini(prompt, generateBtn);
+        
+        insuranceResult.innerText = generatedText;
+        insuranceResultWrapper.classList.remove('hidden');
+    });
+
+
+</script>
 
 </body>
 </html>
